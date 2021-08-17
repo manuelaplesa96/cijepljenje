@@ -40,7 +40,7 @@
               class="form-control" 
               id="inputVaccinationTimeSlot" 
               name="vaccination_time_slot" 
-              value="<%= @application.location_and_time_slot.vaccination_time_slot.date_and_time %>"
+              value="<%= date_and_time_format(@application.location_and_time_slot.vaccination_time_slot.date_and_time) %>"
             >
           </div>
           <div class="form-row mb-4 col-md-6">
