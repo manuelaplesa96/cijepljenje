@@ -1,0 +1,22 @@
+<div class="row" style="height: 100%;">
+  <div class="col-4">
+    <%= erb :'vaccination_worker/partials/nav' %>
+  </div>
+  <div class="col-8">
+    <div class="row mb-4 mt-4">
+      <h4>Prijava</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4">
+        <form method="POST" action="/vaccination_worker/login" style="width: 50%;">
+          <%= erb :'partials/login_form' %>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination_location/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Dodavanje novog mjesta cijepljenja</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-1 mr-3">
+          <form method="POST" action="/admin/vaccination_locations" style="width: 50%;">
+            <div class="form-row mb-3">
+              <label class="col-sm-3 col-form-label" for="location">Županija*</label>
+              <select id="inputVaccinationLocation" class="form-select" name="county" required>
+                <% @counties.each do |county| %>
+                  <option value="<%= county %>"><%= county %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-row mb-2">
+              <label for="inputCity">Grad*</label>
+              <input type="text" class="form-control" id="inputCity" name="city" required>
+            </div>
+            <div class="form-row mb-2">
+              <label for="inputAddress">Adresa*</label>
+              <input type="text" class="form-control" id="inputAddress" name="address" required>
+            </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-dark">Kreiraj</button>
+                <a href="/admin/vaccination_locations" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>

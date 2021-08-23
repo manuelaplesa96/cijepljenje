@@ -1,0 +1,94 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'application/partials/nav_doctor_side_applications' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Prijava na cijepljenje</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4 mr-3">
+        <form method="POST" action="/doctor/applications" style="width: 70%;">
+          <h5 class="text-secondary">Osobni podaci</h5>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="inputFirstName">Ime*</label>
+              <input type="text" class="form-control" id="inputFirstName" name="first_name" required>
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputLastName">Prezime*</label>
+              <input type="text" class="form-control" id="inputLastName" name="last_name" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="inputBirthDate">Datum rodenja*</label>
+              <input type="date" id="birth_date" name="birth_date" required value=<%= DateTime.now() %>>
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputGender">Spol*</label>
+              <select id="inputGender" class="form-select" name="gender" required>
+                <option value='M'>muško</option>
+                <option value='F'>žensko</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="inputOIB">OIB</label>
+              <input type="number" class="form-control" id="inputOIB" name="oib">
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputMBO">MBO</label>
+              <input type="number" class="form-control" id="inputMBO" name="mbo">
+            </div>
+              <small class="text-secondary mb-4">Potrebno je popuniti barem jedno. (OIB ili MBO)</small>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputVaccinationLocation">Mjesto cijepljenja*</label>
+              <select id="inputVaccinationLocation" class="form-select" name="vaccination_location_id" required>
+                <% @locations.each do |location| %>
+                <option value=<%= location.id %>><%= location.address + ', ' + location.city + ' (' + location.county + ')'%></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <h5 class="text-secondary mt-3">Kontakt podaci</h5>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="inputEmail">Email*</label>
+              <input type="email" class="form-control" id="inputEmail" name="email" required>
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputPhoneNumber">Broj telefona</label>
+              <input type="number" class="form-control" id="inputPhoneNumber" name="phone_number">
+            </div>
+          </div>
+          <h5 class="text-secondary mt-3">Prioritetnost</h5>
+          <div class="form-row">
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="chronicPatientCheck" name="chronic_patient">
+                <label class="form-check-label" for="chronicPatientCheck">
+                  Označiti ako je pacijent kronični bolesnik.
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <button type="submit" class="btn btn-dark">Potvrdi prijavu</button>
+              <a href="/doctor/applications" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

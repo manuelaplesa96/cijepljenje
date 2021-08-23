@@ -1,0 +1,39 @@
+    <div class="d-flex flex-column p-3 text-dark bg-warning" style="width: 230px; height: 100%;">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ml-1 text-dark text-decoration-none h1">
+        <span class="fs-1">Cijepljenje</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="/admin/doctors" class="nav-link text-dark">
+            Liječnici
+          </a>
+        </li>
+        <li>
+          <a href="/admin/super_users" class="nav-link text-dark">
+            Prioritetne skupine
+          </a>
+        </li>
+        <li>
+          <a href="/admin/vaccination_workers" class="nav-link text-dark">
+            Cjepitelji
+          </a>
+        </li>
+        <li>
+          <a href="/admin/vaccination_locations" class="nav-link text-dark">
+            Mjesta cijepljenja
+          </a>
+        </li>
+        <li>
+          <a href="/admin/vaccines" class="nav-link text-dark font-weight-bold">
+            Cjepiva
+          </a>
+        </li>
+        <hr>
+        <li class="fixed-bottom">
+          <form action="/admin/logout" method="get" onsubmit="return confirm('Jeste li sigurni?');">
+            <button type="submit" class="nav-link text-dark">Odjava</button>
+          </form>
+        </li>
+      </ul>
+    </div>

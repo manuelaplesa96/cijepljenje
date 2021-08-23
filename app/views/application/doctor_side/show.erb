@@ -1,0 +1,115 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'application/partials/nav_doctor_side_applications' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-4 mt-4">
+      <div class="row mt-4">
+        <h4>Detalji o prijavi</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mt-4">
+        <form method="POST" action="/doctor/applications/<%= @application.id %>" style="width: 50%;">
+          <input type="hidden" name="_method" value="put" />
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="first_name">Ime</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="first_name" value="<%= @application.first_name %>"" name="first_name">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="last_name">Prezime</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="last_name" value="<%= @application.last_name %>"" name="last_name">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="birth_date">Datum rodenja</label>
+            <div class="col-sm-8">
+              <input type="date" id="birth_date" name="birth_date" value=<%= @application.birth_date %>>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="gender">Spol</label>
+            <div class="col-sm-8">
+              <select id="inputGender" class="form-select" name="gender">
+                <% if @application.gender == 'M' %>
+                  <option value="<%= 'M' %>" selected>M</option>
+                  <option value="<%= 'F' %>">Ž</option>
+                <% else %>
+                  <option value="<%= 'M' %>" >M</option>
+                  <option value="<%= 'F' %>"selected>Ž</option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="oib">OIB</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="oib" value="<%= @application.oib %>" name="oib">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="mbo">MBO</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="mbo" value="<%= @application.mbo %>" name="mbo">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="email">Email</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="email" value=<%= @application.email %> name="email">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="phone_number">Broj telefona</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="phone_number"  name="phone_number" value=<%= @application.phone_number %>>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="location">Mjesto cijepljenja</label>
+            <select id="inputVaccinationLocation" class="form-select" name="vaccination_location_id">
+              <option value=<%= @application.vaccination_location_id %> selected><%= @application.vaccination_location.address + ', ' + @application.vaccination_location.city + ' (' + @application.vaccination_location.county + ')'%></option>
+              <% @locations.each do |location| %>
+                <% if location.id != @application.vaccination_location_id %>
+                  <option value=<%= location.id %>><%= location.address + ', ' + location.city + ' (' + location.county + ')'%></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" for="vacciantion_time_slot">Vrijeme cijepljenja</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="vacciantion_time_slot" readonly value="<%= date_and_time_format(@application.location_and_time_slot.vaccination_time_slot.date_and_time) if @application.location_and_time_slot %>">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="form-group">
+              <div class="form-check">
+                <input disabled class="form-check-input" type="checkbox" id="chronicPatientCheck" name="chronic_patient" <%= 'checked' if @application.chronic_patient%>>
+                <label class="form-check-label" for="chronicPatientCheck">
+                  Kronični bolesnik
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" for="status">Status</label>
+            <select id="inputStatus" class="form-select" name="status">
+              <option selected value=<%= nil %>><%= @application.status %></option>
+              <% @statuses.each do |status| %>
+                <% if status != @application.status %>
+                  <option value=<%= status %>><%= status %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+          <button class="btn btn-dark mr-2" type="submit">Prihvati promjene</button>
+          <a class="btn btn-outline-secondary mr-2" href="/doctor/applications" role="button">Odustani</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

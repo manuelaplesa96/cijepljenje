@@ -1,0 +1,40 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'super_user/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Dodavanje novog predstavnika prioriteta</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-1 mr-3">
+          <form method="POST" action="/admin/super_users" style="width: 50%;">
+            <div class="form-row mb-2">
+              <label for="inputSector">Sektor*</label>
+              <input type="text" class="form-control" id="inputSector" name="sector" required>
+            </div>
+            <div class="form-row mb-2">
+              <label for="inputEmail">Email*</label>
+              <input type="email" class="form-control" id="inputEmail" name="email" required>
+            </div>
+            <div class="form-row mb-2">
+              <label for="inputPassword">Lozinka*</label>
+              <input type="text" class="form-control" id="inputPassword" name="password" required>
+            </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-dark">Kreiraj</button>
+                <a href="/admin/super_users" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>

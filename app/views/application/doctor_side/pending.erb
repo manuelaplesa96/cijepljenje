@@ -1,0 +1,65 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'application/partials/nav_doctor_side_pendings' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-1 mt-4">
+      <h4>Zahtjevi za prijavu</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4">
+         <table class="table" style="width:80%;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Ime i prezime</th>
+              <th scope="col">OIB/MBO</th>
+              <th scope="col">Mjesto cijepljenja</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @pending_applications.each do |pending_application| %>
+            <tr>
+              <th scope="row"><%= pending_application.id %></th>
+              <td><%= pending_application.first_name + ' ' + pending_application.last_name %></td>
+              <td>
+                <% if pending_application.oib.nil? %>
+                  <%= pending_application.mbo %>
+                <% else %>
+                  <%= pending_application.oib %>
+                <% end %>
+              </td>
+              <td scope="row"><%= pending_application.vaccination_location.address + ', ' + pending_application.vaccination_location.address %></td>
+              <td>
+                <form action="/doctor/pending/applications/<%= pending_application.id %>" method="post" onsubmit="return confirm('Jeste li sigurni #<%= pending_application.id %>?');">
+                  <input type="hidden" name="_method" value="put">
+                  <input type="hidden" name="chronic_patient" value=<%= true %>>
+                  <button type="submit" class="btn btn-success btn-sm" name="completeYes" value="Complete Transaction">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                  </button>
+                </form>
+                <form action="/doctor/pending/applications/<%= pending_application.id %>" method="post" onsubmit="return confirm('Jeste li sigurni #<%= pending_application.id %>?');">
+                  <input type="hidden" name="_method" value="put">
+                  <input type="hidden" name="chronic_patient" value=<%= false %>>
+                  <button type="submit" class="btn btn-danger btn-sm" name="completeYes" value="Complete Transaction">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </form>
+                <a href="/doctor/applications/<%= pending_application.id %>" class="btn btn-secondary btn-sm">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

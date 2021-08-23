@@ -1,0 +1,19 @@
+    <div class="d-flex flex-column p-3 text-dark bg-warning" style="width: 230px; height: 100%;">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ml-1 text-dark text-decoration-none h1">
+        <span class="fs-1">Cijepljenje</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="/super_user/applications/new" class="nav-link text-dark  font-weight-bold">
+            Prijave
+          </a>
+        </li>
+        <hr>
+        <li class="fixed-bottom" style="width: 230px;">
+          <form action="/super_user/logout" method="get" style="width: 230px;" onsubmit="return confirm('Jeste li sigurni?');">
+            <button type="submit" class="nav-link text-dark">Odjava</button>
+          </form>
+        </li>
+      </ul>
+    </div>

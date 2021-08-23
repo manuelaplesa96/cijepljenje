@@ -1,0 +1,30 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'passport/partials/nav_public_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-1 mt-4">
+      <h4>Potvrda o cijepljenju</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4">
+        <form method="POST" action="/passport" style="width: 50%;">
+          <div class="form-row mb-2">
+            <label for="inputApplicationReference">Unesite identifikacijski broj zahtjeva</label>
+            <input type="text" class="form-control" id="inputApplicationReference" name="application_reference">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <button type="submit" class="btn btn-dark">Kreiraj</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

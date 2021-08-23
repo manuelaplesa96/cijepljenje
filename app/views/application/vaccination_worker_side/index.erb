@@ -1,0 +1,57 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'application/partials/nav_vaccination_worker_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-1 mt-4">
+      <h4>Prijave</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] unless flash[type].nil? %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4">
+         <table class="table" style="width:80%;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Ime i prezime</th>
+              <th scope="col">OIB/MBO</th>
+              <th scope="col">Status</th>
+              <th scope="col">Datum cijepljenja</th>
+              <th scope="col">Mjesto cijepljenja</th>
+              <th scope="col">Doza</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @applications.each do |application| %>
+            <tr>
+              <th scope="row"><%= application['id'] %></th>
+              <td><%= application['first_name'] + ' ' + application['last_name'] %></td>
+              <td>
+                <% if application['oib'].nil? %>
+                  <%= application['mbo'] %>
+                <% else %>
+                  <%= application['oib'] %>
+                <% end %>
+              </td>
+              <td scope="row"><%= application['status'] %></td>
+              <td scope="row"><%= date_and_time_format(@location_and_time_slots.find(application['location_and_time_slot_id']).vaccination_time_slot.date_and_time) if application['location_and_time_slot_id'] %></td>
+              <td scope="row"><%= @locations.find(application['vaccination_location_id']).address + ', ' + @locations.find(application['vaccination_location_id']).city %></td>
+              <td scope="row"><%= @vaccinations.where(application_id: application['id']).last.dose_number if @vaccinations.where(application_id: application['id']).last  %></td>
+              <td>
+                <a href="/vaccination_worker/applications/<%= application['id'] %>" class="btn btn-secondary btn-sm">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

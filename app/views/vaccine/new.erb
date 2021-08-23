@@ -1,0 +1,63 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccine/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Dodavanje novog cjepiva</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-1 mr-3">
+        <form method="POST" action="/admin/vaccines" style="width: 50%;">
+          <div class="form-row mb-2">
+            <label for="inputName" class="col-sm-4">Ime*</label>
+            <input type="text" class="form-control col-sm-8" id="inputName" name="name" required>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputSeries" class="col-sm-4">Serija*</label>
+            <input type="text" class="form-control col-sm-8" id="inputSeries" name="series" required>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputDosesNumber" class="col-sm-4">Broj doza*</label>
+            <input type="number" class="form-control col-sm-8" id="inputDosesNumber" name="doses_number" required>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputMinDays" class="col-sm-4">Minimalan broj dana izmedu doza*</label>
+            <input type="number" class="form-control col-sm-8" id="inputMinDays" name="min_days_between_doses" required>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputMaxDays" class="col-sm-4">Maksimalan broj dana izmedu doza*</label>
+            <input type="number" class="form-control col-sm-8" id="inputMaxDays" name="max_days_between_doses" required>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputStartDate" class="col-sm-4">Datum početka korištenja*</label>
+            <input type="date" id="start" name="start_date" required min="DateTime.now">
+          </div>
+          <div class="form-row mb-3">
+            <label class="col-sm-4 col-form-label" for="location">Mjesto rada*</label>
+            <select id="inputVaccinationLocation" class="form-select col-sm-8" name="vaccination_location_id" required>
+              <% @locations.each do |location| %>
+                <option value=<%= location.id %>><%= location.address + ', ' + location.city + ' (' + location.county + ')'%></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputAmount" class="col-sm-4">Količina*</label>
+            <input type="number" class="form-control col-sm-8" id="inputAmount" name="amount" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <button type="submit" class="btn btn-dark">Kreiraj</button>
+              <a href="/admin/vaccines" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

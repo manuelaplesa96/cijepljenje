@@ -1,0 +1,47 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination_worker/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-1 mt-4">
+      <h4>Cjepitelji</h4>
+    </div>
+    <a href="/admin/vaccination_workers/new" class="btn btn-secondary btn-sm">
+      <span><strong>+ Dodaj novog cjepitelja</strong></span>            
+    </a>
+    <div class="row">
+      <div class="mt-4">
+         <table class="table" style="width:80%;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Mjesto rada</th>
+              <th scope="col">Vrijeme kreiranja</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% unless @vaccination_workers.nil? %>
+              <% @vaccination_workers.each do |vaccination_worker| %>
+              <tr>
+                <th scope="row"><%= vaccination_worker.id %></th>
+                <td><%= vaccination_worker.email %></td>
+                <td><%= @locations.find(vaccination_worker.vaccination_location_id).address + ', ' +  @locations.find(vaccination_worker.vaccination_location_id).city %></td>
+                <td><%= date_and_time_format(vaccination_worker.created_at) %></td>
+                <td>
+                  <div class="form-group">
+                    <a href="/admin/vaccination_workers/<%= vaccination_worker.id %>" class="btn btn-secondary btn-sm">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

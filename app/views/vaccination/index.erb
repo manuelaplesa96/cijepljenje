@@ -1,0 +1,57 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination/partials/nav_vaccination_worker_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-1 mt-4">
+      <h4>Do sad obavljena cijepljenja</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] unless flash[type].nil? %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4">
+         <table class="table" style="width:80%;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Ime i prezime</th>
+              <th scope="col">OIB/MBO</th>
+              <th scope="col">Cjepivo</th>
+              <th scope="col">Datum cijepljenja</th>
+              <th scope="col">Mjesto cijepljenja</th>
+              <th scope="col">Doza</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @vaccinations.each do |vaccination| %>
+            <tr>
+              <th scope="row"><%= vaccination.id %></th>
+              <td><%= vaccination.application.first_name + ' ' + vaccination.application.last_name %></td>
+              <td>
+                <% if vaccination.application.oib.nil? %>
+                  <%= vaccination.application.mbo %>
+                <% else %>
+                  <%= vaccination.application.oib %>
+                <% end %>
+              </td>
+              <td scope="row"><%= vaccination.vaccine.name + ', ' + vaccination.vaccine.series %></td>
+              <td scope="row"><%= date_and_time_format(vaccination.vaccination_time_slot.date_and_time) if vaccination.vaccination_time_slot %></td>
+              <td scope="row"><%= vaccination.application.vaccination_location.address + ', ' + vaccination.application.vaccination_location.city %></td>
+              <td scope="row"><%= vaccination.dose_number %></td>
+              <td>
+                <a href="/vaccination_worker/vaccinations/<%= vaccination.id %>" class="btn btn-secondary btn-sm">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

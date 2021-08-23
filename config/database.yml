@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  pool: 15
+  encoding: unicode
+
+test:
+  adapter: postgresql
+  database: db/test_cijepi-se
+
+development:
+  adapter: postgresql
+  database: db/development_cijepi-se
+
+production:
+  adapter: postgresql
+  database: db/production_cijepi-se

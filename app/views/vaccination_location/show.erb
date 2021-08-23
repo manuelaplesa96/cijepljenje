@@ -1,0 +1,35 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination_location/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-4 mt-4">
+      <div class="row mt-4">
+        <h4>Detalji o mjestu cijepljenja</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mt-4" style="width: 50%;">
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label" for="address">Adresa</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="address" value="<%= @vaccination_location.address %>" name="address" readonly>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label" for="city">Grad</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="city" value="<%= @vaccination_location.city %>" name="city" readonly>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label" for="county">Županija</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="county" value="<%= @vaccination_location.county %>" name="county" readonly>
+          </div>
+        </div>
+          <a class="btn btn-outline-secondary mr-2" href="/admin/vaccination_locations" role="button">Povratak</a>
+      </div>
+    </div>
+  </div>
+</div>

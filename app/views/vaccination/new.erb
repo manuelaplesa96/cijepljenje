@@ -1,0 +1,68 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination/partials/nav_vaccination_worker_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Novo cijepljenje</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-4 mr-3">
+        <form method="POST" action="/vaccination_worker/vaccinations" style="width: 70%;">
+          <input type="hidden" name="application_id" value="<%= @application.id %>">
+          <div class="form-row mb-4 col-md-6">
+            <label for="inputName">Ime i prezime</label>
+            <input readonly
+              type="text"
+              class="form-control" 
+              id="inputName" 
+              name="name" 
+              value="<%= @application.first_name + ' ' + @application.last_name %>"
+            >
+          </div>
+          <div class="form-row mb-4 col-md-6">
+            <label for="inputOIB">OIB</label>
+            <input readonly type="text" class="form-control" id="inputOIB" name="oib" value="<%= @application.oib %>">
+          </div>
+          <div class="form-row mb-4 col-md-6">
+            <label for="inputMBO">MBO</label>
+            <input readonly type="text" class="form-control" id="inputMBO" name="mbo" value="<%= @application.mbo %>">
+          </div>
+          <div class="form-row mb-4 col-md-6">
+            <label for="inputVaccinationTimeSlot">Vrijeme cijepljenja</label>
+            <input readonly 
+              type="text" 
+              class="form-control" 
+              id="inputVaccinationTimeSlot" 
+              name="vaccination_time_slot" 
+              value="<%= @application.location_and_time_slot.vaccination_time_slot.date_and_time %>"
+            >
+          </div>
+          <div class="form-row mb-4 col-md-6">
+            <label class="col-sm-3 col-form-label" for="location">Cjepivo*</label>
+            <select id="inputVaccine" class="form-select" name="vaccine_series" required>
+              <% @vaccines.each do |vaccine| %>
+                <option value=<%= vaccine.series %>><%= vaccine.name + ' ' + vaccine.series %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-row mb-4 col-md-6">
+            <label for="inputDoseNumber">Broj doze*</label>
+            <input readonly type="text" class="form-control" id="inputDoseNumber" name="dose_number" value=<%= @dose_number + 1 unless @dose_number.nil? %>>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <button type="submit" class="btn btn-dark">Dodaj cijepljenje</button>
+              <a href="/vaccination_worker/applications" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'application/partials/nav_vaccination_worker_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-4 mt-4">
+      <div class="row mt-4">
+        <h4>Detalji o prijavi</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mt-4">
+        <form method="GET" action="/vaccination_worker/vaccinations/new/<%= @application['id'] %>" style="width: 50%;">
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="first_name">Ime</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="first_name" value=<%= @application['first_name'] %> name="first_name">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="last_name">Prezime</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="last_name" value=<%= @application['last_name'] %> name="last_name">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="birth_date">Datum rodenja</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="birth_date" name="birth_date" value="<%= date_format(@application['birth_date']) %>">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="gender">Spol</label>
+            <div class="col-sm-8">
+              <% if @application['gender'] == 'F' %>
+                <input readonly type="text" class="form-control" id="gender" name="gender" value="Ž">
+              <% else %>
+                <input readonly type="text" class="form-control" id="gender" name="gender" value="M">
+              <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="oib">OIB</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="oib" value="<%= @application['oib'] %>" name="oib">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="mbo">MBO</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="mbo" value="<%= @application['mbo'] %>" name="mbo">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="email">Email</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="email" value=<%= @application['email'] %> name="email">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="phone_number">Broj telefona</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="phone_number" value="<%= @application['phone_number'] %>" name="phone_number">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="vacciantion_time_slot">Cjepivo</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="vacciantion_time_slot" readonly value="<%= @vaccinations.where(application_id: @application['id']).last.vaccine.name if @vaccinations.where(application_id: @application['id']).last %>">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="vacciantion_time_slot">Doza</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="vacciantion_time_slot" readonly value="<%= @vaccinations.where(application_id: @application['id']).last.dose_number if @vaccinations.where(application_id: @application['id']).last %>">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="location">Mjesto cijepljenja</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="vaccination_location" value="<%= @locations.find(@application['vaccination_location_id']).address + ', ' + @locations.find(@application['vaccination_location_id']).address %>" name="vaccination_location">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="vacciantion_time_slot">Vrijeme cijepljenja</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="vacciantion_time_slot" readonly value="<%= date_and_time_format(@location_and_time_slots.find(@application['location_and_time_slot_id']).vaccination_time_slot.date_and_time) %>">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="form-group">
+              <div class="form-check">
+                <input disabled class="form-check-input" type="checkbox" id="chronicPatientCheck" name="chronic_patient" <%= 'checked' if @application.chronic_patient%>>
+                <label class="form-check-label" for="chronicPatientCheck">
+                  Kronični bolesnik
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label" for="status">Status</label>
+            <div class="col-sm-8">
+              <input readonly type="text" class="form-control" id="status" value="<%= @application.status %>" name="status">
+            </div>
+          </div>
+          <button class="btn btn-dark mr-2" type="submit">Dodaj cijepljenje</button>
+          <a class="btn btn-outline-secondary mr-2" href="/vaccination_worker/applications" role="button">Odustani</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

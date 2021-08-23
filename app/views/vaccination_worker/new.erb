@@ -1,0 +1,71 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination_worker/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Dodavanje novog cjepitelja</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="mt-1 mr-3">
+        <form method="POST" action="/admin/vaccination_workers" style="width: 50%;">
+          <div class="form-row mb-2">
+            <label for="inputEmail">Email*</label>
+            <input type="email" class="form-control" id="inputEmail" name="email" required>
+          </div>
+          <div class="form-row mb-2">
+            <label for="inputPassword">Lozinka*</label>
+            <input type="text" class="form-control" id="inputPassword" name="password" required>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-6 col-form-label" for="start_work_time">Početak radnog vremena*</label>
+            <div class="col-sm-6">
+              <select id="inputVaccinationLocation" class="form-select" name="start_work_time" required>
+                <% @start_work_times.each do |start_work_time| %>
+                  <option value=<%= start_work_time %>><%= start_work_time %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-6 col-form-label" for="end_work_time">Kraj radnog vremena*</label>
+            <div class="col-sm-6">
+              <select id="inputVaccinationLocation" class="form-select" name="end_work_time" required>
+                <% @end_work_times.each do |end_work_time| %>
+                  <option value=<%= end_work_time %>><%= end_work_time %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-6 col-form-label" for="start_work_time">Vremenska zona*</label>
+            <div class="col-sm-6">
+              <select id="inputVaccinationLocation" class="form-select" name="time_zone" required>
+                <option value="Europe/Sarajevo">Europe/Sarajevo</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row mb-3">
+            <label class="col-sm-3 col-form-label" for="location">Mjesto rada*</label>
+            <select id="inputVaccinationLocation" class="form-select" name="vaccination_location_id" required>
+              <% @locations.each do |location| %>
+                <option value=<%= location.id %>><%= location.address + ', ' + location.city + ' (' + location.county + ')'%></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <button type="submit" class="btn btn-dark">Kreiraj</button>
+              <a href="/admin/vaccination_workers" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

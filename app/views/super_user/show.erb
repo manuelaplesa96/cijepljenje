@@ -1,0 +1,33 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'super_user/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-4 mt-4">
+      <div class="row mt-4">
+        <h4>Detalji o predstavniku prioriteta</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mt-4">
+        <form method="POST" action="/admin/super_users/<%= @super_user.id %>" style="width: 50%;">
+          <input type="hidden" name="_method" value="put" />
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" for="sector">Sektor</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector" value="<%= @super_user.sector %>" name="sector">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" for="email">Email</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="email" value="<%= @super_user.email %>" name="email">
+            </div>
+          </div>
+            <button class="btn btn-dark mr-2" type="submit">Prihvati promjene</button>
+            <a class="btn btn-outline-secondary mr-2" href="/admin/super_users" role="button">Odustani</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

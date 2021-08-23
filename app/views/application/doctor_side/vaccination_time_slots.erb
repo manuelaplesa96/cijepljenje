@@ -1,0 +1,34 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'application/partials/nav_doctor_side_applications' %>
+  </div>
+  <div class="col-9">
+    <div class="row mt-4">
+      <h4>Dodjela termina za zahtjev #<%= @application.reference %></h4>
+    </div>
+    <div class="row">
+      <div class="mt-4 mr-3">
+        <form method="POST" action="/doctor/applications/vaccination_time_slot/<%= @application.id %>" style="width: 50%;">
+          <input type="hidden" name="_method" value="put" />
+          <input type="hidden" name="application_id" value=<%= @application.id %> />
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputVaccinationLocation">Vrijeme cijepljenja*</label>
+              <select id="inputVaccinationLocation" class="form-select" name="vaccination_time_slot_id">
+                <% @available_time_slots.each do |available_time_slot| %>
+                <option value=<%= available_time_slot.id %>><%= date_and_time_format(available_time_slot.date_and_time) %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <button type="submit" class="btn btn-dark">Dodaj vrijeme cijepljenja</button>
+              <a href="/doctor/applications" class="btn btn-outline-secondary" role="button" aria-pressed="true">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

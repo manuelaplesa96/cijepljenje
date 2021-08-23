@@ -1,0 +1,60 @@
+<div class="row" style="height: 100%;">
+  <div class="col-3">
+    <%= erb :'vaccination_location/partials/nav_admin_side' %>
+  </div>
+  <div class="col-9">
+    <div class="row mb-1 mt-4">
+      <h4>Mjesta cijepljenja</h4>
+    </div>
+    <% flash.keys.each do |type| %>
+      <div data-alert class="flash alert radius col-8 alert-<%= type %>" id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
+    <a href="/admin/vaccination_locations/new" class="btn btn-secondary btn-sm">
+      <span><strong>+ Dodaj novog mjesta cijepljenja</strong></span>            
+    </a>
+    <div class="row">
+      <div class="mt-4">
+         <table class="table" style="width:80%;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Županija</th>
+              <th scope="col">Adresa</th>
+              <th scope="col">Grad</th>
+              <th scope="col">Vrijeme kreiranja</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% unless @vaccination_locations.nil? %>
+              <% @vaccination_locations.each do |vaccination_location| %>
+              <tr>
+                <th scope="row"><%= vaccination_location.id %></th>
+                <td><%= vaccination_location.county %></td>
+                <td><%= vaccination_location.address %></td>
+                <td><%= vaccination_location.city %></td>
+                <td><%= date_and_time_format(vaccination_location.created_at) %></td>
+                <td>
+                  <form action="/admin/vaccination_locations/<%= vaccination_location.id %>" method="post" onsubmit="return confirm('Jeste li sigurni za želite obrisati mjesto cijepljenja #<%= vaccination_location.id %>?');">
+                    <input type="hidden" name="_method" value="delete">
+                    <div class="form-group">
+                      <a href="/admin/vaccination_locations/<%= vaccination_location.id %>" class="btn btn-secondary btn-sm">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                      </a>
+                      <button type="submit" class="btn btn-danger btn-sm" name="completeYes" value="Complete Transaction">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
