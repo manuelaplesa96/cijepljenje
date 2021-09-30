@@ -1,7 +1,7 @@
 # Cijepljenje
 
 Aplikacija implementirana kao praktični dio diplomskog rada na temu Razvoj web-aplikacije u aplikacijskom okviru Sinatra.
-Aplikacija je dostupna na: https://cijepljenje.herokuapp.com/
+Aplikacija je dostupna na: https://cijepljenje.herokuapp.com/ (nije vise dostupna, od 30.9.2021.)
 
 ## Lokalno p okretanje aplikacije
 
