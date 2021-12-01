@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby '2.7.2'
+
 gem 'aasm', '~> 5.1', '>= 5.1.1'
 gem 'activerecord', require: 'active_record'
 gem 'activesupport'
